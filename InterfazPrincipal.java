@@ -5,13 +5,26 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InterfazPrincipal extends JFrame implements ActionListener {
   private JButton botonAgregarAnimal;
   private JButton botonBorrarAnimal;
+  private static JTable tablaAnimales;
+  public static List<Animal> listaAnimales = new ArrayList<>();
+
+  public static void actualizarTabla() {
+    DefaultTableModel modeloTabla = (DefaultTableModel) tablaAnimales.getModel();
+        modeloTabla.setRowCount(0);
+     // Agregar datos de los animales a la tabla
+          for (Animal animal : listaAnimales) {
+            modeloTabla.addRow(new Object[] {animal.getEspecie(), animal.getNombre(), animal.getEdad(), animal.getSexo(), animal.getSalud()});
+        }
+    }
 
   public InterfazPrincipal() {
-   //icono que se muestra en la parte superior del programa
+  //icono que se muestra en la parte superior del programa
    setIconImage(new ImageIcon(getClass().getResource("images/icono.png")).getImage());
 
    //titulo de la ventana
@@ -36,9 +49,13 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
    panelPrincipal.add(botonBorrarAnimal);
 
    // Tabla para los datos
-   String[] columnas = {"Especie", "Nombre", "Edad", "Sexo", "Estado de salud"};
-   String[][] datos = {};
-   JTable tablaAnimales = new JTable(new DefaultTableModel(datos, columnas));
+   DefaultTableModel modeloTabla = new DefaultTableModel();
+   tablaAnimales = new JTable(modeloTabla);
+   modeloTabla.addColumn("Especie");
+   modeloTabla.addColumn("Nombre");
+   modeloTabla.addColumn("Edad");
+   modeloTabla.addColumn("Sexo");
+   modeloTabla.addColumn("Salud");
    tablaAnimales.setPreferredScrollableViewportSize(new Dimension(600, 400));
    tablaAnimales.getTableHeader().setReorderingAllowed(false);
    JScrollPane scrollTabla = new JScrollPane(tablaAnimales);
@@ -47,8 +64,9 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
    // Agregar el panel principal a la ventana
    getContentPane().add(panelPrincipal);
    getContentPane().add(panelTabla, BorderLayout.SOUTH);
-  }
 
+  }
+  
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == botonAgregarAnimal) {
       // Acción para agregar un animal
@@ -115,13 +133,26 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
       JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
       JButton botonAgregar = new JButton("Agregar");
       panelBoton.add(botonAgregar);
+
       //Boton para agregar y cerrar dialog
       botonAgregar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-      dialogoAgregar.dispose();
+        String especie = (String) comboBoxEspecie.getSelectedItem();
+        String nombre = textFieldNombre.getText();
+        int edad = Integer.parseInt(textFieldEdad.getText());
+        String sexo = (String) comboBoxSexo.getSelectedItem();
+        String salud = textAreaSalud.getText();
+        Animal animal = new Animal(especie, nombre, edad, sexo, salud);
+
+        // Agregar objeto Animal a la lista de animales en InterfazPrincipal
+        InterfazPrincipal.listaAnimales.add(animal);
+  
+        // Actualizar la tabla en InterfazPrincipal
+        InterfazPrincipal.actualizarTabla();
+  
+        dialogoAgregar.dispose();
       }
       });
-
 
       // Contenedor principal
       JPanel panelPrincipal = new JPanel(new BorderLayout());
@@ -133,9 +164,9 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
 
     } else if (e.getSource() == botonBorrarAnimal) {
     // Acción para borrar un animal
-        JOptionPane.showMessageDialog(this, "Funcion borrar animal en construccion.");
+        JOptionPane.showMessageDialog(this, "En construccion");
     }
-  }
+   }
 
   public static void main(String[] args) {
     InterfazPrincipal interfaz = new InterfazPrincipal();
