@@ -25,12 +25,20 @@ public class Bienvenida extends JFrame implements ActionListener{
    botonAcceder.addActionListener(this);
    panel.add(botonAcceder, BorderLayout.SOUTH);
    add(panel);
+
   }
 
   //metodo para pasar a la siguiente pantalla
   public void actionPerformed(ActionEvent e){
    if(e.getSource() == botonAcceder){
-     
+        InterfazPrincipal interfaz = new InterfazPrincipal();
+        interfaz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        interfaz.pack();
+        interfaz.setLocationRelativeTo(null);
+        interfaz.pack();
+	interfaz.setLocationRelativeTo(null);
+	interfaz.setVisible(true);
+        dispose();
    }
   }
   //definicion de la clase main
