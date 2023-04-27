@@ -2,8 +2,9 @@
  * Autor: Gerald Opitz
  * Fecha de creación: 18 de abril 2023
  */
-public class Animal {
+public abstract class Animal {
   // Definición de variables
+  protected String tipoAnimal;
   protected String especie;
   protected String nombre;
   protected int edadAnios;
@@ -11,7 +12,8 @@ public class Animal {
   protected String salud;
 
   // Constructor del objeto
-  public Animal(String especie, String nombre, int edadAnios, String sexo, String salud) {
+  public Animal(String tipoAnimal, String especie, String nombre, int edadAnios, String sexo, String salud) {
+    this.tipoAnimal = tipoAnimal;
     this.especie = especie;
     this.nombre = nombre;
     this.edadAnios = edadAnios;
@@ -20,6 +22,10 @@ public class Animal {
   }
 
   // Getters
+  public String getTipoAnimal() {
+    return tipoAnimal;
+  }
+  
   public String getEspecie() {
     return especie;
   }

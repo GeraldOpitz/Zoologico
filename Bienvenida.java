@@ -52,7 +52,7 @@ public class Bienvenida extends JFrame implements ActionListener {
     }
   }
 
-  // definicion de la clase main
+  // Metodo main
   public static void main(String args[]) {
     Bienvenida ventanaBienvenida = new Bienvenida();
     ventanaBienvenida.pack();
