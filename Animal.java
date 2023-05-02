@@ -2,6 +2,7 @@
  * Autor: Gerald Opitz
  * Fecha de creación: 18 de abril 2023
  */
+
 public abstract class Animal {
   // Definición de variables
   protected String tipoAnimal;

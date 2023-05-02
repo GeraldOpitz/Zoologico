@@ -11,14 +11,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class InterfazPrincipal extends JFrame implements ActionListener {
   private JButton botonAgregarAnimal;
   private JButton botonBorrarAnimal;
   private static JTable tablaAnimales;
-  public static List<Animal> listaAnimales = new ArrayList<>();
+
+  // Definición de listas
+  public static ArrayList<Animal> listaAnimales = new ArrayList<>();
   public static ArrayList<Animal> listaAnimalesTerrestres = new ArrayList<>();
   public static ArrayList<Animal> listaAnimalesMarinos = new ArrayList<>();
   public static ArrayList<Animal> listaAnimalesAereos = new ArrayList<>();
@@ -83,13 +84,12 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == botonAgregarAnimal) {
-      // Acción para agregar un animal
+      // Creación del JDialog
       JDialog dialogoAgregar = new JDialog(this, "Agregar animal", true);
       dialogoAgregar.setSize(400, 300);
       dialogoAgregar.setLocationRelativeTo(null);
 
       // Datos de animales
-      JLabel labelEspecie = new JLabel("Especie");
       // Animales terrestres
       String[] animalesTerrestres = {
           "León", "Tigre", "Jirafa", "Elefante", "Rinoceronte", "Cocodrilo", "Hipopótamo",
@@ -121,10 +121,11 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
       grupoTipo.add(radioAereo);
 
       // Creación del combobox para especie
+      JLabel labelEspecie = new JLabel("Especie");
       DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>(animalesTerrestres);
       JComboBox<String> comboBoxAnimales = new JComboBox<>(modeloComboBox);
 
-      // Metodos para que las opciones del combobox cambien dependiendo del tipo
+      // Clases anonimas las opciones del combobox cambien dependiendo del tipo
       // Tipo terrestre
       radioTerrestre.addActionListener(new ActionListener() {
         @Override
@@ -250,11 +251,12 @@ public class InterfazPrincipal extends JFrame implements ActionListener {
           String sexo = (String) comboBoxSexo.getSelectedItem();
           String salud = textAreaSalud.getText();
 
+          // Creación de objetos de tipos de animales
           AnimalTerrestre animalTerrestre = new AnimalTerrestre(tipoAnimal, especie, nombre, edadAnios, sexo, salud);
           AnimalMarino animalMarino = new AnimalMarino(tipoAnimal, especie, nombre, edadAnios, sexo, salud);
           AnimalAereo animalAereo = new AnimalAereo(tipoAnimal, especie, nombre, edadAnios, sexo, salud);
 
-          // Creación de las listas de animales por tipo
+          // Agregar animales a su lista correspondiente
           InterfazPrincipal.listaAnimalesTerrestres.add(animalTerrestre);
           InterfazPrincipal.listaAnimalesMarinos.add(animalMarino);
           InterfazPrincipal.listaAnimalesAereos.add(animalAereo);

@@ -1,3 +1,8 @@
+/*
+ * Autor: Gerald Opitz
+ * Fecha de creación: 25 de abril 2023
+ */
+
 public class AnimalAereo extends Animal {
     
     public AnimalAereo(String tipoAnimal, String especie, String nombre, int edadAnios, String sexo, String salud) {
